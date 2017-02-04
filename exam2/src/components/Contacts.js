@@ -1,7 +1,6 @@
 import React from 'react';
 import ContactInfo from './ContactInfo';
 import ContactForm from './ContactForm';
-import ContactRemover from './ContactRemover';
 import update from 'react-addons-update';
 
 
@@ -76,8 +75,9 @@ class Contacts extends React.Component {
     }
   }
 
-  _removeContact() {
-    if (this.state.keySelected === -1) {
+  _removeContact(key) {
+    // if (this.state.keySelected === -1) {
+    if (key === undefined || key === -1) {
       console.log('Contact not selected');
       return;
     }
@@ -86,7 +86,8 @@ class Contacts extends React.Component {
       contactData: update(
         this.state.contactData,
         {
-          $splice: [[this.state.keySelected, 1]]
+          // $splice: [[this.state.keySelected, 1]]
+          $splice: [[key, 1]]
         }
       ),
       keySelected: -1,
@@ -109,12 +110,12 @@ class Contacts extends React.Component {
                            key={ i }
                            contactKey={ i }
                            isSelected={ this._isSelected.bind(this)(i) }
-                           onSelect={ this._onSelect.bind(this) } />
+                           onSelect={ this._onSelect.bind(this) }
+                           onRemove={ this._removeContact.bind(this) } />
             )
           })}
         </ul>
         <ContactForm onSubmit={ this._updateContact.bind(this) } contact={ this.state.contactSelected } keySelected={ this.state.keySelected }/>
-        <ContactRemover onRemove={ this._removeContact.bind(this) } />
       </div>
     )
   };
