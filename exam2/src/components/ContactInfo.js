@@ -12,6 +12,11 @@ class ContactInfo extends React.Component {
     this.props.onRemove(this.props.contactKey);
   }
 
+  shouldComponentUpdate(props, state) {
+    // This allows to update only element has been changed.
+    return (JSON.stringify(props) !== JSON.stringify(this.props));
+  }
+
   render() {
     let itemStyle = (isSelected) => {
       if (!isSelected) return;
@@ -28,8 +33,8 @@ class ContactInfo extends React.Component {
           { this.props.name } { this.props.phone }
           <button onClick={ this.handleRemove.bind(this) }>Remove</button>
       </li>
-    )
-  };
+    );
+  }
 }
 
 

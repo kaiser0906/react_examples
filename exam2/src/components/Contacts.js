@@ -26,21 +26,22 @@ class Contacts extends React.Component {
       state = update(this.state, {
         contactData: {
           $push: [{"name": name, "phone": phone}]
-        }
+        },
       });
+      this._clearContactState();
     } else {
       state = update(this.state, {
         contactData: {
           [key]: {
             name: { $set: name },
             phone: { $set: phone }
-          }
-        }
-      })
+          },
+        },
+      });
       state['contactSelected'] = {
         name: name,
         phone: phone,
-      }
+      };
     }
 
     this.setState(state);
@@ -49,13 +50,7 @@ class Contacts extends React.Component {
   _onSelect(key) {
     if (this._isSelected(key)) {
       console.log('Key selected canceled.');
-      this.setState({
-        keySelected: -1,
-        contactSelected: {
-          name: '',
-          phone: '',
-        }
-      });
+      this._clearContactState();
       return;
     }
 
@@ -76,7 +71,6 @@ class Contacts extends React.Component {
   }
 
   _removeContact(key) {
-    // if (this.state.keySelected === -1) {
     if (key === undefined || key === -1) {
       console.log('Contact not selected');
       return;
@@ -86,15 +80,20 @@ class Contacts extends React.Component {
       contactData: update(
         this.state.contactData,
         {
-          // $splice: [[this.state.keySelected, 1]]
           $splice: [[key, 1]]
-        }
+        },
       ),
+    });
+    this._clearContactState();
+  }
+
+  _clearContactState() {
+    this.setState({
       keySelected: -1,
       contactSelected: {
         name: '',
         phone: '',
-      }
+      },
     });
   }
 
@@ -117,8 +116,8 @@ class Contacts extends React.Component {
         </ul>
         <ContactForm onSubmit={ this._updateContact.bind(this) } contact={ this.state.contactSelected } keySelected={ this.state.keySelected }/>
       </div>
-    )
-  };
+    );
+  }
 }
 
 

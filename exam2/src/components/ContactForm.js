@@ -9,7 +9,7 @@ class ContactForm extends React.Component {
       keySelected: -1,
       name: '',
       phone: '',
-    }
+    };
   }
 
   handleChange(e) {
@@ -24,7 +24,7 @@ class ContactForm extends React.Component {
       keySelected: -1,
       name: '',
       phone: '',
-    })
+    });
   }
 
   componentWillReceiveProps(props){
@@ -42,8 +42,8 @@ class ContactForm extends React.Component {
         <input type="text" name="phone" placeholder="Phone" value={ this.state.phone } onChange={ this.handleChange.bind(this) } />
         <button type="button" onClick={ this.handleSubmit.bind(this) }>Submit</button>
       </div>
-    )
-  };
+    );
+  }
 }
 
 
