@@ -5,9 +5,9 @@ import './Header.css';
 import logo from '../logo.svg';
 
 
-const MenuItem = ({active, children, to}) => {
+const MenuItem = ({ active, children, to }) => {
   return (
-    <Link to={ to } className={`menu-item ${active ? 'active': ''}`}>
+    <Link to={ to } className={ `menu-item ${active ? 'active' : ''}` }>
       { children }
     </Link>
   );
@@ -20,7 +20,7 @@ class Header extends React.Component {
     return (
       <div>
         <div className="logo">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={ logo } className="App-logo" alt="logo" />
         </div>
         <div className="menu">
           <MenuItem to={ '/' } active={ router.isActive('/', true) }>Home</MenuItem>
